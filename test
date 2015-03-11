@@ -1,0 +1,68 @@
+#!/bin/sh
+
+assert() {
+  command=$1
+  exitCode=$2
+  lineno=$3
+  message=$4
+
+  result=`$command`
+  resultCode=$?
+  if [[ $resultCode -ne $exitCode ]]; then
+    echo "Failed at" $lineno
+    exit 1
+  fi
+  if [[ -n "$message" ]]; then
+    if [ "$message" != "$result" ]; then
+        echo "Failed at" $lineno"; expected '"$message"' but was '"$result"'"
+        exit 1
+    fi
+  fi
+}
+
+assert_fails() {
+  assert "$1" 1 "$2"
+}
+
+assert_success() {
+  assert "$1" "0" "$3" "$2"
+}
+
+BIN=./target/urlp
+
+cargo build
+if [[ $? -ne 0 ]]; then
+  echo 'cargo build failed'
+  exit 1
+fi
+
+assert_fails   "$BIN" $LINENO
+assert_fails   "$BIN --port /google.com" $LINENO
+assert_fails   "$BIN --host /google.com" $LINENO
+assert_fails   "$BIN --port http://google.com" $LINENO
+assert_fails   "$BIN --query http://google.com" $LINENO
+assert_fails   "$BIN --fragment http://google.com" $LINENO
+assert_fails   "$BIN --password http://google.com" $LINENO
+assert_fails   "$(echo 'google.com' | $BIN --host); test $? -eq 0" $LINENO
+assert_success "$BIN --host http://google.com"                   "google.com" $LINENO
+assert_success "$BIN --host http://mail.google.com"              "mail.google.com" $LINENO
+assert_success "$BIN --port http://google.com:3000"              "3000" $LINENO
+assert_success "$BIN --scheme http://google.com"                 "http" $LINENO
+assert_success "$BIN --scheme https://google.com"                "https" $LINENO
+assert_success "$BIN --protocol http://google.com"               "http" $LINENO
+assert_success "$BIN --path http://google.com"                   "/" $LINENO
+assert_success "$BIN --path http://google.com/path/thing"        "/path/thing" $LINENO
+assert_success "$BIN --query http://google.com?q=searchThing"    "q=searchThing" $LINENO
+assert_success "$BIN --fragment http://google.com#searchThing"   "searchThing" $LINENO
+# according to the URL spec, usernames are initially empty but non-null
+assert_success "$BIN --username http://google.com"               "" $LINENO
+assert_success "$BIN --username http://clay@google.com"          "clay" $LINENO
+assert_success "$BIN --password http://:@google.com"             "" $LINENO
+assert_success "$BIN --password http://:secret@google.com"       "secret" $LINENO
+assert_success "$BIN --password http://clay:secret@google.com"   "secret" $LINENO
+assert_success "echo $(echo 'http://google.com' | $BIN --host)"  "google.com" $LINENO
+assert         "$BIN --help" 0 $LINENO
+assert         "$BIN -h" 0 $LINENO
+
+echo 'Passed'
+exit 0

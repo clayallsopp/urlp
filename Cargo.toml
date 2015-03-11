@@ -1,0 +1,8 @@
+[package]
+
+name = "urlp"
+version = "0.0.1"
+authors = ["Clay Allsopp <clay.allsopp@gmail.com>"]
+
+[dependencies]
+url = "0.2.23"
