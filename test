@@ -32,6 +32,8 @@ printenv
 BIN=./target/urlp
 
 cargo build
+ls -al
+ls -al ./target
 if [[ $? -ne 0 ]]; then
   echo 'cargo build failed'
   exit 1
