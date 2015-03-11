@@ -6,7 +6,7 @@ assert() {
   lineno=$3
   message=$4
 
-  result=`$command`
+  eval result=\`${command}\`
   resultCode=$?
   if [[ $resultCode -ne $exitCode ]]; then
     echo "Failed at" $lineno
@@ -43,7 +43,7 @@ assert_fails   "$BIN --port http://google.com" $LINENO
 assert_fails   "$BIN --query http://google.com" $LINENO
 assert_fails   "$BIN --fragment http://google.com" $LINENO
 assert_fails   "$BIN --password http://google.com" $LINENO
-assert_fails   "$(echo 'google.com' | $BIN --host); test $? -eq 0" $LINENO
+assert_fails   "echo 'google.com' | $BIN --host" $LINENO
 assert_success "$BIN --host http://google.com"                   "google.com" $LINENO
 assert_success "$BIN --host http://mail.google.com"              "mail.google.com" $LINENO
 assert_success "$BIN --port http://google.com:3000"              "3000" $LINENO
@@ -60,7 +60,7 @@ assert_success "$BIN --username http://clay@google.com"          "clay" $LINENO
 assert_success "$BIN --password http://:@google.com"             "" $LINENO
 assert_success "$BIN --password http://:secret@google.com"       "secret" $LINENO
 assert_success "$BIN --password http://clay:secret@google.com"   "secret" $LINENO
-assert_success "echo $(echo 'http://google.com' | $BIN --host)"  "google.com" $LINENO
+assert_success "echo 'http://google.com' | $BIN --host"  "google.com" $LINENO
 assert         "$BIN --help" 0 $LINENO
 assert         "$BIN -h" 0 $LINENO
 
