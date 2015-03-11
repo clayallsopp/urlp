@@ -28,8 +28,7 @@ assert_success() {
   assert "$1" "0" "$3" "$2"
 }
 
-echo pwd
-ls -al
+printenv
 BIN=./target/urlp
 
 cargo build
