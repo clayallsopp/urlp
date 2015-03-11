@@ -1,4 +1,4 @@
-# urlp
+# urlp [![Build Status](https://travis-ci.org/clayallsopp/urlp.svg?branch=master)](https://travis-ci.org/clayallsopp/urlp)
 
 A simple command-line utility for parsing URLs; does One Thing Well; uses Servo's URL parser; implemented in Rust
 
