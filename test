@@ -28,7 +28,7 @@ assert_success() {
   assert "$1" "0" "$3" "$2"
 }
 
-BIN=./target/debug/urlp
+BIN=./target/release/urlp
 
 cargo build --release
 if [[ $? -ne 0 ]]; then
