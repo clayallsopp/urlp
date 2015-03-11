@@ -1,6 +1,8 @@
 # urlp [![Build Status](https://travis-ci.org/clayallsopp/urlp.svg?branch=master)](https://travis-ci.org/clayallsopp/urlp)
 
-A simple command-line utility for parsing URLs; does One Thing Well; uses Servo's URL parser; implemented in Rust
+A simple command-line utility for parsing URLs. No more awk/sed/grep incantations. Does [One Thing Well](http://en.wikipedia.org/wiki/Unix_philosophy).
+
+Implemented in Rust, using [Servo's URL parser](https://github.com/servo/rust-url).
 
 
 ```shell
