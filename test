@@ -33,7 +33,7 @@ BIN=./target/urlp
 
 cargo build
 ls -al
-ls -al ./target
+ls -al ./target/debug
 if [[ $? -ne 0 ]]; then
   echo 'cargo build failed'
   exit 1
