@@ -28,12 +28,9 @@ assert_success() {
   assert "$1" "0" "$3" "$2"
 }
 
-printenv
-BIN=./target/urlp
+BIN=./target/debug/urlp
 
 cargo build
-ls -al
-ls -al ./target/debug
 if [[ $? -ne 0 ]]; then
   echo 'cargo build failed'
   exit 1
