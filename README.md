@@ -16,6 +16,14 @@ $ echo http://localhost:4567 | urlp --port
 
 ## Installation
 
+urlp is available for Linux and OS X, 64-bit only for now:
+
+```
+curl -L https://github.com/clayallsopp/urlp/releases/download/1.0.0/urlp-`uname -s`-x86_64 > /usr/local/bin/urlp; chmod +x /usr/local/bin/urlp
+```
+
+If you want to install from the source, checkout the repo and run `make install`.
+
 ## Usage
 
 ```shell
