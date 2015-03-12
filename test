@@ -30,7 +30,7 @@ assert_success() {
 
 BIN=./target/release/urlp
 
-cargo build --release
+make build
 if [[ $? -ne 0 ]]; then
   echo 'cargo build failed'
   exit 1
