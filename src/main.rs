@@ -30,7 +30,7 @@ fn print_help() {
     println!("    --port                  Port");
     println!("    --protocol, --scheme    Protocol");
     println!("    --password              Password");
-    println!("    --username              Password");
+    println!("    --username              Username");
     println!("    --path                  Path");
     println!("    --fragment              Fragment");
     println!("    --query                 Query string");

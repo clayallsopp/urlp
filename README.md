@@ -35,7 +35,7 @@ Options:
     --port                  Port
     --protocol, --scheme    Protocol
     --password              Password
-    --username              Password
+    --username              Username
     --path                  Path
     --fragment              Fragment
     --query                 Query string
